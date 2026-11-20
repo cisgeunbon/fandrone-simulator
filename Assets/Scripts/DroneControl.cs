@@ -16,7 +16,9 @@ public class DroneControl : MonoBehaviour
     public Vector2 rearThrust = new Vector2();
     public Vector2 droneUp = new Vector2(0f, 1f);
 
+
     [SerializeField] private GameObject Grabber; public Rigidbody2D rb;
+    private FixedJoint2D pickupJoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,8 +52,27 @@ public class DroneControl : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("in");
+        if (pickupJoint != null)
+        {
+            return;
+        }
+
+        Rigidbody2D itemBody = other.attachedRigidbody;
+
+        if (itemBody == null || !itemBody.CompareTag("Pickup"))
+        {
+            Debug.Log("not abnle");
+            if (itemBody == null) Debug.Log("itemnull");
+            if (!itemBody.CompareTag("Pickup")) Debug.Log("nottag");
+            return;
+        }
+        Debug.Log("able");
+        pickupJoint = itemBody.gameObject.AddComponent<FixedJoint2D>();
+        pickupJoint.connectedBody = GetComponent<Rigidbody2D>();
+        pickupJoint.enableCollision = false;
 
     }
 }
