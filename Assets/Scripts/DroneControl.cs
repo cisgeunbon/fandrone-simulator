@@ -65,7 +65,7 @@ public class DroneControl : MonoBehaviour
 
         Rigidbody2D itemBody = other.attachedRigidbody;
 
-        if (itemBody == null || !itemBody.CompareTag("Pickup"))
+        if (itemBody == null || !(itemBody.CompareTag("Pickup") || itemBody.CompareTag("Cargo")))
         {
             Debug.Log("not abnle");
             if (itemBody == null) Debug.Log("itemnull");

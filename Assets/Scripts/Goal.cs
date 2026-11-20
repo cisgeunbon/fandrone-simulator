@@ -20,7 +20,7 @@ public class Goal : MonoBehaviour
     {
         Rigidbody2D itemBody = other.attachedRigidbody;
 
-        if (itemBody == null || !itemBody.CompareTag("Pickup"))
+        if (itemBody == null || !itemBody.CompareTag("DeliveryCargo"))
         {
             return;
         }
