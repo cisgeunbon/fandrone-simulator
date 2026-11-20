@@ -31,7 +31,10 @@ public class DroneControl : MonoBehaviour
     {
         frontFanOn = Input.GetKey(KeyCode.RightArrow);
         rearFanOn = Input.GetKey(KeyCode.LeftArrow);
-
+        if (Input.GetKey(KeyCode.Z))
+        {
+            releaseItem();
+        }
 
 
     }
@@ -74,5 +77,11 @@ public class DroneControl : MonoBehaviour
         pickupJoint.connectedBody = GetComponent<Rigidbody2D>();
         pickupJoint.enableCollision = false;
 
+    }
+
+    private void releaseItem()
+    {
+        if (!pickupJoint) return;
+        Destroy(pickupJoint);
     }
 }
