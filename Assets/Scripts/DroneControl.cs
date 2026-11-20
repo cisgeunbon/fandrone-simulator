@@ -16,7 +16,7 @@ public class DroneControl : MonoBehaviour
     public Vector2 rearThrust = new Vector2();
     public Vector2 droneUp = new Vector2(0f, 1f);
 
-    public Rigidbody2D rb;
+    [SerializeField] private GameObject Grabber; public Rigidbody2D rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -48,5 +48,10 @@ public class DroneControl : MonoBehaviour
             //rearThrust = fanThrust;
             rb.AddForceAtPosition(droneUp * fanThrust, rearFanPoint.position);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+
     }
 }
