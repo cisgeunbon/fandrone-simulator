@@ -15,7 +15,7 @@ public class EnemyDrone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        toDrone = Vector2(0f, 1f);
+        //toDrone = Vector2(0f, 1f);
         if (detection == true)
         {
             Debug.Log("gameover");
