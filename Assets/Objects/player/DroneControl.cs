@@ -45,8 +45,8 @@ public class DroneControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        frontFanOn = Input.GetKey(KeyCode.RightArrow);
-        rearFanOn = Input.GetKey(KeyCode.LeftArrow);
+        frontFanOn = Input.GetKey(KeyCode.LeftArrow);
+        rearFanOn = Input.GetKey(KeyCode.RightArrow);
         if (Input.GetKey(KeyCode.Z))
         {
             releaseItem();
