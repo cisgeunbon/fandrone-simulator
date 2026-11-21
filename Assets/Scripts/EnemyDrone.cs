@@ -1,6 +1,7 @@
 using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyDrone : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class EnemyDrone : MonoBehaviour
     [SerializeField] private Transform pointB;
     private Rigidbody2D rb;
     private Transform target;
+
+    [SerializeField] private LayerMask occlusionLayers;
 
 
     void Awake()
@@ -53,7 +56,9 @@ public class EnemyDrone : MonoBehaviour
 
     void FixedUpdate()
     {
+        bool blocked = Physics2D.Linecast(transform.position, playerPos, occlusionLayers).collider != null;
         Vector2 targetPos = target.position;
+        detection = detection && !blocked;
         if (detection)
         {
             target = player.transform;
