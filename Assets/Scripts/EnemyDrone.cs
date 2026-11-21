@@ -56,15 +56,12 @@ public class EnemyDrone : MonoBehaviour
 
     void FixedUpdate()
     {
-        bool blocked = Physics2D.Linecast(transform.position, playerPos, occlusionLayers).collider != null;
-        Vector2 targetPos = target.position;
-        detection = detection && !blocked;
-        if (detection)
-        {
-            target = player.transform;
-        }
+        // bool blocked = Physics2D.Linecast(transform.position, playerPos, occlusionLayers).collider != null;
+        // Vector2 targetPos = target.position;
+        // detection = detection && !blocked;
 
-        if (rb.position == targetPos)
+
+        if (!detection && rb.position == (Vector2)target.position)
         {
             target = target == pointA ? pointB : pointA;
         }
