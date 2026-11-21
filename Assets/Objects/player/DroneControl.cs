@@ -20,6 +20,11 @@ public class DroneControl : MonoBehaviour
     [SerializeField] private GameObject Grabber; public Rigidbody2D rb;
     private FixedJoint2D pickupJoint;
 
+    // SFX
+    public AudioSource hitSFX;
+    public AudioSource rearFanSFX;
+    public AudioSource frontFanSFX;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
