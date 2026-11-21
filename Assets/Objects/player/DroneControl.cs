@@ -6,14 +6,25 @@ using UnityEngine;
 public class DroneControl : MonoBehaviour
 {
 
+    [SerializeField] private float maxFanThrust = 20f;
+    [SerializeField] private float thrustAcceleration = 30f;
+    [SerializeField] private float thrustDeceleration = 40f;
+    [SerializeField] private float stabilizationStrength = 5f;
+    [SerializeField] private float rotationalDamping = 2f;
+    [SerializeField] private float maxCorrectionTorque = 10f;
+    [SerializeField] private float horizontalDamping = 4f;
+    [SerializeField] private float maxHorizontalSpeed = 15f;
+
+
+    float frontThrust;
+    float rearThrust;
+
     [SerializeField] private static float fanThrust = 10f;
     [SerializeField] private Transform frontFanPoint;
     [SerializeField] private Transform rearFanPoint;
     public bool frontFanOn;
     public bool rearFanOn;
 
-    public Vector2 frontThrust = new Vector2();
-    public Vector2 rearThrust = new Vector2();
     public Vector2 droneUp = new Vector2(0f, 1f);
 
 
@@ -48,16 +59,39 @@ public class DroneControl : MonoBehaviour
     {
         droneUp = transform.up;
 
-        if (frontFanOn)
-        {
-            //frontThrust = fanThrust;
-            rb.AddForceAtPosition(droneUp * fanThrust, frontFanPoint.position);
-        }
-        if (rearFanOn)
-        {
-            //rearThrust = fanThrust;
-            rb.AddForceAtPosition(droneUp * fanThrust, rearFanPoint.position);
-        }
+        float frontTarget = frontFanOn ? maxFanThrust : 0f;
+        float rearTarget = rearFanOn ? maxFanThrust : 0f;
+
+        frontThrust = Mathf.MoveTowards(
+            frontThrust,
+            frontTarget,
+            (frontFanOn ? thrustAcceleration : thrustDeceleration) * Time.fixedDeltaTime
+        );
+
+        rearThrust = Mathf.MoveTowards(
+            rearThrust,
+            rearTarget,
+            (rearFanOn ? thrustAcceleration : thrustDeceleration) * Time.fixedDeltaTime
+        );
+
+        rb.AddForceAtPosition(droneUp * frontThrust, frontFanPoint.position);
+        rb.AddForceAtPosition(droneUp * rearThrust, rearFanPoint.position);
+
+        // auto stabilization
+        float angleError = Mathf.DeltaAngle(transform.eulerAngles.z, 0f);
+
+        float correction = angleError * stabilizationStrength
+            - rb.angularVelocity * rotationalDamping;
+
+        correction = Mathf.Clamp(correction, -maxCorrectionTorque, maxCorrectionTorque);
+
+        rb.AddTorque(correction);
+
+        // horizontal damping and limit
+        Vector2 velocity = rb.linearVelocity;
+        velocity.x *= Mathf.Exp(-horizontalDamping * Time.fixedDeltaTime);
+        velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalSpeed, maxHorizontalSpeed);
+        rb.linearVelocity = velocity;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -72,9 +106,9 @@ public class DroneControl : MonoBehaviour
 
         if (itemBody == null || !(itemBody.CompareTag("Pickup") || itemBody.CompareTag("Cargo")))
         {
-            Debug.Log("not abnle");
-            if (itemBody == null) Debug.Log("itemnull");
-            if (!itemBody.CompareTag("Pickup")) Debug.Log("nottag");
+            Debug.Log("itembody null");
+            // if (itemBody == null) Debug.Log("itemnull");
+            // if (!itemBody.CompareTag("Pickup")) Debug.Log("nottag");
             return;
         }
         Debug.Log("able");
