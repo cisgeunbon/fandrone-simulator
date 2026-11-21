@@ -97,7 +97,7 @@ public class DroneControl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("in");
+
         if (pickupJoint != null)
         {
             return;
@@ -105,23 +105,48 @@ public class DroneControl : MonoBehaviour
 
         Rigidbody2D itemBody = other.attachedRigidbody;
 
-        if (itemBody == null || !(itemBody.CompareTag("Pickup") || itemBody.CompareTag("Cargo")))
-        {
-            Debug.Log("itembody null");
-            // if (itemBody == null) Debug.Log("itemnull");
-            // if (!itemBody.CompareTag("Pickup")) Debug.Log("nottag");
-            return;
-        }
-        Debug.Log("able");
-        pickupJoint = itemBody.gameObject.AddComponent<FixedJoint2D>();
-        pickupJoint.connectedBody = GetComponent<Rigidbody2D>();
+        if (itemBody == null || itemBody == rb) return;
+
+        if (!itemBody.CompareTag("Pickup") && !itemBody.CompareTag("Cargo")) return;
+
+        pickupJoint = gameObject.AddComponent<FixedJoint2D>();
+        pickupJoint.connectedBody = itemBody;
         pickupJoint.enableCollision = false;
 
-    }
+        Cargo cargo = itemBody.GetComponent<Cargo>();
 
+
+        if (cargo != null)
+        {
+            cargo.SetPickupJoint(pickupJoint);
+        }
+
+        // if (itemBody == null || !(itemBody.CompareTag("Pickup") || itemBody.CompareTag("Cargo")))
+        // {
+        //     Debug.Log("itembody null");
+        //     // if (itemBody == null) Debug.Log("itemnull");
+        //     // if (!itemBody.CompareTag("Pickup")) Debug.Log("nottag");
+        //     return;
+        // }
+        // Debug.Log("able");
+        // pickupJoint = itemBody.gameObject.AddComponent<FixedJoint2D>();
+        // pickupJoint.connectedBody = GetComponent<Rigidbody2D>();
+        // pickupJoint.enableCollision = false;
+
+    }
     private void releaseItem()
     {
-        if (!pickupJoint) return;
+        if (pickupJoint == null)
+            return;
+
+        Rigidbody2D itemBody = pickupJoint.connectedBody;
+        if (itemBody != null && itemBody.TryGetComponent<Cargo>(out var cargo))
+        {
+            cargo.SetPickupJoint(null);
+            cargo.isActive = true;
+        }
+        pickupJoint.enabled = false;
         Destroy(pickupJoint);
+        pickupJoint = null;
     }
 }

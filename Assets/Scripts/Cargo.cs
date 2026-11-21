@@ -8,17 +8,20 @@ using UnityEngine;
 public class Cargo : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private bool isActive;
+    public bool isActive;
     private GameObject obj;
     [SerializeField] private float radius = 3f;
     [SerializeField] private float impulse = 10f;
     [SerializeField] private LayerMask affectedLayers;
     [SerializeField] private GameObject explosionEffect;
+    [SerializeField] private LayerMask impactLayers;
 
     private bool hasExploded;
+    public bool hasPicked;
 
 
-    FixedJoint2D pickupJoint;
+    public FixedJoint2D pickupJoint;
+
 
 
 
@@ -34,14 +37,17 @@ public class Cargo : MonoBehaviour
         return;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        detonate();
-        if (!isActive)
+        if (!isActive) return;
+
+        int hitLayer = collision.gameObject.layer;
+        if ((impactLayers.value & (1 << hitLayer)) == 0)
         {
+            Debug.Log("asdf");
             return;
         }
-
+        detonate();
     }
 
 
@@ -73,6 +79,8 @@ public class Cargo : MonoBehaviour
         {
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
         }
+
+        Destroy(gameObject);
         //obj.destroy;
     }
 }
