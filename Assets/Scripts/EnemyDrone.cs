@@ -12,7 +12,7 @@ public class EnemyDrone : MonoBehaviour
 
     private Vector2 toPlayer = new Vector2();
     Vector2 dronePos = new Vector2();
-    private GameObject player;
+    [SerializeField] private GameObject player;
     private Vector2 playerPos = new Vector2();
 
     [SerializeField] private Transform pointA;
@@ -42,7 +42,7 @@ public class EnemyDrone : MonoBehaviour
     {
         Rigidbody2D detected = other.attachedRigidbody;
 
-        if (detected == null || !CompareTag("Drone"))
+        if (detected == null || !detected.CompareTag("Player"))
         {
             detection = false;
             return;
@@ -54,10 +54,11 @@ public class EnemyDrone : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 targetPos = target.position;
-        // if (detection)
-        // {
-        //     target = player.transform;
-        // }
+        if (detection)
+        {
+            target = player.transform;
+        }
+
         if (rb.position == targetPos)
         {
             target = target == pointA ? pointB : pointA;
