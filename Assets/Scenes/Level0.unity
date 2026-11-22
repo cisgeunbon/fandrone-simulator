@@ -43182,7 +43182,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'press "Z"
+  m_text: 'press "Z" or space
+
+    or down arrow
 
     to drop'
   m_isRightToLeft: 0
@@ -43444,7 +43446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: arrow keys to fly!
+  m_text: left and right to fly!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d35633da214975f4abdc602216ef51cf, type: 2}
   m_sharedMaterial: {fileID: -1527016432180049971, guid: d35633da214975f4abdc602216ef51cf, type: 2}
