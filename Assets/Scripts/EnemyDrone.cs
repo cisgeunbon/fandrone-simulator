@@ -18,6 +18,7 @@ public class EnemyDrone : MonoBehaviour
     [SerializeField] private Transform pointB;
     private Rigidbody2D rb;
     private Transform target;
+    private RaycastHit2D raycast;
 
 
     [SerializeField] private LayerMask occlusionLayers;
@@ -29,10 +30,14 @@ public class EnemyDrone : MonoBehaviour
         target = pointB;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         Rigidbody2D detected = other.attachedRigidbody;
-        if (detected == null) return;
+        if (detected == null || !detected.CompareTag("Player")) return;
+
+        raycast = Physics2D.Linecast(transform.position, detected.position, occlusionLayers);
+
+        if (raycast.collider != null) return;
 
         if (detected.CompareTag("Player"))
         {
