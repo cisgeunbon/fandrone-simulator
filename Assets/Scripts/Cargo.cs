@@ -55,7 +55,12 @@ public class Cargo : MonoBehaviour
         foreach (Collider2D hit in Physics2D.OverlapCircleAll(center, radius, affectedLayers))
         {
             Rigidbody2D body = hit.attachedRigidbody;
-            if (body == null || body == ownBody || body.bodyType != RigidbodyType2D.Dynamic || !pushedBodies.Add(body))
+            if (body == null) continue;
+            if (body.CompareTag("EnemyDrone"))
+            {
+                body.GetComponent<EnemyDrone>().Death();
+            }
+            if (body == ownBody || body.bodyType != RigidbodyType2D.Dynamic || !pushedBodies.Add(body))
             {
                 continue;
             }

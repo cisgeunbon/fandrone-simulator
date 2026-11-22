@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class EnemyDrone : MonoBehaviour
 {
+    [SerializeField] private GameObject explosionEffectPrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private float speed = 10f;
     private Vector2 moveDirection = new Vector2();
@@ -23,6 +25,11 @@ public class EnemyDrone : MonoBehaviour
 
     [SerializeField] private LayerMask occlusionLayers;
 
+    public async Awaitable Death()
+    {
+        Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 
     void Awake()
     {
