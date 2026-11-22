@@ -9,8 +9,6 @@ public class EnemyDrone : MonoBehaviour
     [SerializeField] private float speed = 10f;
     private Vector2 moveDirection = new Vector2();
 
-    [SerializeField] public GameManager gm;
-
     private Vector2 toPlayer = new Vector2();
     Vector2 dronePos = new Vector2();
     [SerializeField] private GameObject player;
@@ -34,6 +32,7 @@ public class EnemyDrone : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Rigidbody2D detected = other.attachedRigidbody;
+        if (detected == null) return;
 
         if (detected.CompareTag("Player"))
         {
