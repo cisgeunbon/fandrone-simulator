@@ -39,6 +39,7 @@ public class DroneControl : MonoBehaviour
 
     // SFX
     public AudioSource hitSFX;
+    public AudioSource pickupSFX;
     public AudioSource rearFanSFX;
     public AudioSource frontFanSFX;
 
@@ -126,6 +127,14 @@ public class DroneControl : MonoBehaviour
         rb.linearVelocity = velocity;
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.relativeVelocity.magnitude > 1f)
+        {
+            hitSFX.Play();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -145,6 +154,8 @@ public class DroneControl : MonoBehaviour
         pickupJoint.enableCollision = false;
 
         Cargo cargo = itemBody.GetComponent<Cargo>();
+
+        pickupSFX.Play();
 
 
         if (cargo != null)
@@ -179,5 +190,6 @@ public class DroneControl : MonoBehaviour
         pickupJoint.enabled = false;
         Destroy(pickupJoint);
         pickupJoint = null;
+        pickupSFX.Play();
     }
 }
