@@ -10,6 +10,7 @@ public class EnemyDrone : MonoBehaviour
     public bool detection = false;
     private Vector2 moveDirection = new Vector2();
 
+    [SerializeField] public GameManager gm;
 
     private Vector2 toPlayer = new Vector2();
     Vector2 dronePos = new Vector2();
@@ -20,6 +21,7 @@ public class EnemyDrone : MonoBehaviour
     [SerializeField] private Transform pointB;
     private Rigidbody2D rb;
     private Transform target;
+
 
     [SerializeField] private LayerMask occlusionLayers;
 
@@ -60,7 +62,10 @@ public class EnemyDrone : MonoBehaviour
         // Vector2 targetPos = target.position;
         // detection = detection && !blocked;
 
-
+        if (detection)
+        {
+            gm.RestartStage();
+        }
         if (!detection && rb.position == (Vector2)target.position)
         {
             target = target == pointA ? pointB : pointA;
