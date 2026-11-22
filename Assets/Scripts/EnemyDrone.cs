@@ -42,9 +42,9 @@ public class EnemyDrone : MonoBehaviour
         Rigidbody2D detected = other.attachedRigidbody;
         if (detected == null || !detected.CompareTag("Player")) return;
 
-        raycast = Physics2D.Linecast(transform.position, detected.position, occlusionLayers);
+        // raycast = Physics2D.Linecast(transform.position, detected.position, occlusionLayers);
 
-        if (raycast.collider != null) return;
+        // if (raycast.collider != null) return;
 
         if (detected.CompareTag("Player"))
         {
