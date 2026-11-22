@@ -6,6 +6,7 @@ public class BigFan : MonoBehaviour
 {
     [SerializeField] Vector2 windDirection = new Vector2(1f, 0f);
     [SerializeField] float windStrength = 10f;
+    [SerializeField] GameObject windZone;
 
     // Update is called once per frame
     void OnTriggerStay2D(Collider2D collision)
