@@ -33,6 +33,10 @@ public class DroneControl : MonoBehaviour
     private FixedJoint2D pickupJoint;
     GameManager gm;
 
+    // Animators
+    public Animator frontFanAnimator;
+    public Animator rearFanAnimator;
+
     // SFX
     public AudioSource hitSFX;
     public AudioSource rearFanSFX;
@@ -55,9 +59,29 @@ public class DroneControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        frontFanOn = Input.GetKey(KeyCode.LeftArrow);
-        rearFanOn = Input.GetKey(KeyCode.RightArrow);
-        if (Input.GetKey(KeyCode.Z))
+        frontFanOn = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
+        rearFanOn = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        {
+            frontFanAnimator.gameObject.SetActive(true);
+            frontFanSFX.Play();
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            rearFanAnimator.gameObject.SetActive(true);
+            rearFanSFX.Play();
+        }
+        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A))
+        {
+            frontFanAnimator.gameObject.SetActive(false);
+            frontFanSFX.Stop();
+        }
+        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D))
+        {
+            rearFanAnimator.gameObject.SetActive(false);
+            rearFanSFX.Stop();
+        }
+        if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.DownArrow))
         {
             releaseItem();
         }
