@@ -1,5 +1,7 @@
 using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
@@ -21,18 +23,45 @@ public class GameMenu : MonoBehaviour
         }
 
         pausePanel.SetActive(true);
+        menuPanel.SetActive(false);
         pauseButton.onClick.AddListener(PauseClick);
+        resumeButton.onClick.AddListener(ResumeClick);
+        returnButton.onClick.AddListener(ReturnClick);
+
     }
 
     private void PauseClick()
     {
         Debug.Log("Pause");
+        menuPanel.SetActive(true);
+        pausePanel.SetActive(false);
         PauseGame();
+    }
+
+    private void ResumeClick()
+    {
+        menuPanel.SetActive(false);
+        pausePanel.SetActive(true);
+        ResumeGame();
+        return;
+    }
+
+    private void ReturnClick()
+    {
+        SceneManager.LoadScene("MainScene");
+        return;
     }
 
     void PauseGame()
     {
+        Time.timeScale = 0f;
 
+
+    }
+
+    void ResumeGame()
+    {
+        Time.timeScale = 1f;
     }
     void Start()
     {
