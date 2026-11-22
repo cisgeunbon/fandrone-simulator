@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void StageClear()
     {
-
+        moveNext();
     }
     public void moveNext()
     {

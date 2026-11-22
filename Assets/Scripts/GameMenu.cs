@@ -12,6 +12,7 @@ public class GameMenu : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button returnButton;
+    [SerializeField] private GameObject clearPanel;
 
 
     void Awake()
@@ -23,7 +24,9 @@ public class GameMenu : MonoBehaviour
         }
 
         pausePanel.SetActive(true);
+        clearPanel.SetActive(false);
         menuPanel.SetActive(false);
+
         pauseButton.onClick.AddListener(PauseClick);
         resumeButton.onClick.AddListener(ResumeClick);
         returnButton.onClick.AddListener(ReturnClick);

@@ -122,6 +122,7 @@ MonoBehaviour:
   menuPanel: {fileID: 7448102273883196207}
   resumeButton: {fileID: 1331523811986302326}
   returnButton: {fileID: 3211287472959790961}
+  clearPanel: {fileID: 1035623450673742930}
 --- !u!1001 &2699982957619054576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -349,6 +350,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ff93963e2266324c8b26898599ee039, type: 3}
+--- !u!1 &1035623450673742930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3703434769939475909, guid: 1ff93963e2266324c8b26898599ee039, type: 3}
+  m_PrefabInstance: {fileID: 4411971034210347415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1666641796224420077 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3034126137588261242, guid: 1ff93963e2266324c8b26898599ee039, type: 3}
