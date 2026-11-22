@@ -134,12 +134,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cargo
   isActive: 0
-  radius: 10
+  radius: 5
   impulse: 100
   affectedLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  explosionEffect: {fileID: 0}
+  explosionEffectPrefab: {fileID: 2629763403908794065, guid: 40097e7d846f11d4f98569ac2fe05a97, type: 3}
   impactLayers:
     serializedVersion: 2
     m_Bits: 64

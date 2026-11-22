@@ -13,23 +13,14 @@ public class Cargo : MonoBehaviour
     [SerializeField] private float radius = 3f;
     [SerializeField] private float impulse = 10f;
     [SerializeField] private LayerMask affectedLayers;
-    [SerializeField] private GameObject explosionEffect;
+    [SerializeField] private GameObject explosionEffectPrefab;
     [SerializeField] private LayerMask impactLayers;
 
     private bool hasExploded;
     public bool hasPicked;
 
-
     public FixedJoint2D pickupJoint;
 
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void SetPickupJoint(FixedJoint2D joint)
     {
@@ -75,10 +66,7 @@ public class Cargo : MonoBehaviour
 
             body.AddForce(direction * impulse, ForceMode2D.Impulse);
         }
-        if (explosionEffect != null)
-        {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        }
+        Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
         //obj.destroy;
