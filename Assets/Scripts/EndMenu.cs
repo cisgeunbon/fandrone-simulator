@@ -2,27 +2,30 @@ using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class EndMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject resetPanel;
-    [SerializeField] private Button resetButton;
     [SerializeField] private string mainscene = "MainScene";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        resetPanel.SetActive(true);
-        resetButton.onClick.AddListener(HandleReset);
-    }
+    private IDisposable restartInput;
     // Update is called once per frame
-    public void HandleReset()
+    private void OnEnable()
     {
-        ResetGame();
+        restartInput = InputSystem.onAnyButtonPress.CallOnce(OnRestartPressed);
     }
 
-    void ResetGame()
+    private void OnDisable()
+    {
+        restartInput?.Dispose();
+    }
+
+    private void OnRestartPressed(InputControl button)
     {
         SceneManager.LoadScene(mainscene);
     }
+
 }
