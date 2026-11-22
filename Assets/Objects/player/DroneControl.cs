@@ -1,6 +1,4 @@
 using System;
-using JetBrains.Annotations;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class DroneControl : MonoBehaviour
