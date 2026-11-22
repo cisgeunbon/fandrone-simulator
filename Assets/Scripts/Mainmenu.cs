@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Mainmenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private string firstStageScene = "TestLevel";
+    [SerializeField] private string firstStageScene = "Level0";
     [SerializeField] private Button startButton;
 
     void Awake()
