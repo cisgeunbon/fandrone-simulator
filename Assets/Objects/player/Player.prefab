@@ -203,10 +203,9 @@ GameObject:
   - component: {fileID: 8956601545864908171}
   - component: {fileID: 7892522338175292070}
   - component: {fileID: 1259529693527767652}
-  - component: {fileID: 7884077967612490506}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2bf11de857e4054d8e1c5006dd0cbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneControl
+  explosionEffectPrefab: {fileID: 2629763403908794065, guid: 40097e7d846f11d4f98569ac2fe05a97, type: 3}
   maxFanThrust: 30
   thrustAcceleration: 700
   thrustDeceleration: 800
@@ -488,14 +488,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!81 &7884077967612490506
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3294021698483259222}
-  m_Enabled: 1
 --- !u!1 &4014229834613545201
 GameObject:
   m_ObjectHideFlags: 0

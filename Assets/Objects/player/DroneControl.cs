@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DroneControl : MonoBehaviour
 {
+    [SerializeField] private GameObject explosionEffectPrefab;
 
     [SerializeField] private float maxFanThrust = 20f;
     [SerializeField] private float thrustAcceleration = 30f;
@@ -30,17 +31,25 @@ public class DroneControl : MonoBehaviour
 
     [SerializeField] private GameObject Grabber; public Rigidbody2D rb;
     private FixedJoint2D pickupJoint;
-
+    GameManager gm;
 
     // SFX
     public AudioSource hitSFX;
     public AudioSource rearFanSFX;
     public AudioSource frontFanSFX;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public async Awaitable Death()
+    {
+        Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        gameObject.SetActive(false);
+        await Awaitable.WaitForSecondsAsync(2f);
+        gm.RestartStage();
+    }
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -52,8 +61,6 @@ public class DroneControl : MonoBehaviour
         {
             releaseItem();
         }
-
-
     }
 
     void FixedUpdate()

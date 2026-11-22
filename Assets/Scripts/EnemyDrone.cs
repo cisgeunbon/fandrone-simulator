@@ -7,7 +7,6 @@ public class EnemyDrone : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private float speed = 10f;
-    public bool detection = false;
     private Vector2 moveDirection = new Vector2();
 
     [SerializeField] public GameManager gm;
@@ -32,28 +31,14 @@ public class EnemyDrone : MonoBehaviour
         target = pointB;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-
-        //toDrone = Vector2(0f, 1f);
-
-    }
-
-
-
     void OnTriggerEnter2D(Collider2D other)
     {
         Rigidbody2D detected = other.attachedRigidbody;
 
-        if (detected == null || !detected.CompareTag("Player"))
+        if (detected.CompareTag("Player"))
         {
-            detection = false;
-            return;
+            _ = detected.GetComponent<DroneControl>().Death();
         }
-
-        detection = true;
     }
 
     void FixedUpdate()
@@ -62,11 +47,7 @@ public class EnemyDrone : MonoBehaviour
         // Vector2 targetPos = target.position;
         // detection = detection && !blocked;
 
-        if (detection)
-        {
-            gm.RestartStage();
-        }
-        if (!detection && rb.position == (Vector2)target.position)
+        if (rb.position == (Vector2)target.position)
         {
             target = target == pointA ? pointB : pointA;
         }
