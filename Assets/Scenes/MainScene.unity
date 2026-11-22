@@ -37590,7 +37590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291a5dd6574052a4691932ee5277f9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mainmenu
-  firstStageScene: TestLevel
+  firstStageScene: Level0
   startButton: {fileID: 524657218}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
