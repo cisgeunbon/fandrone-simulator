@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,28 +10,20 @@ public class Mainmenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private string firstStageScene = "Level0";
-    [SerializeField] private Button startButton;
 
-    void Awake()
+    private IDisposable startInput;
+
+    private void OnEnable()
     {
-        Debug.Log("Mainmenu Awake", this);
-        if (startButton == null)
-        {
-            Debug.LogError("Start Button이 연결되지 않았어.", this);
-            return;
-        }
-
-        startButton.onClick.AddListener(StartClick);
-        Debug.Log($"클릭 연결 완료: {startButton.name}", startButton);
+        startInput = InputSystem.onAnyButtonPress.CallOnce(OnStartPressed);
     }
 
-    private void StartClick()
+    private void OnDisable()
     {
-        Debug.Log("startgame");
-        StartGame();
+        startInput?.Dispose();
     }
 
-    public void StartGame()
+    private void OnStartPressed(InputControl button)
     {
         SceneManager.LoadScene(firstStageScene);
     }
